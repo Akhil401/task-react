@@ -4,6 +4,7 @@ import Input from "./components/Input";
 import { Todo } from "./model";
 import TodoList from "./components/TodoList";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import UML from "./uml";
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
@@ -67,6 +68,7 @@ const App: React.FC = () => {
       </div>
     </DragDropContext>
   );
+  <UML />;
 };
 
 export default App;
