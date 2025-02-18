@@ -1,11 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import { TodoProvider } from './todoContext';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+   <React.StrictMode>
+      <TodoProvider>
+         <App />
+      </TodoProvider>
+   </React.StrictMode>,
+   document.getElementById('root')
+);
