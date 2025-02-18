@@ -19,12 +19,12 @@ interface props {
 const SingleTodo = ({ index, todo, todos, setTodos, completed }: props) => {
    const [edit, setEdit] = useState<boolean>(false);
    const [editTodo, setEditTodo] = useState<string>(todo.todo);
-   const { fetchTodos } = useTodos();
+   const { fetchTodos, url } = useTodos();
 
    const handleEdit = (e: React.FormEvent, id: number) => {
       e.preventDefault();
       axios
-         .patch(`${import.meta.env.VITE_API_URL}/${id}` as string, {
+         .patch(`${url}/${id}` as string, {
             todo: editTodo,
             completed: todo.completed
          })
@@ -46,7 +46,7 @@ const SingleTodo = ({ index, todo, todos, setTodos, completed }: props) => {
    const handleDelete = (id: number) => {
       // setTodos(todos.filter((todo) => todo._id !== id));
       axios
-         .delete(`${import.meta.env.VITE_API_URL}/${id}` as string)
+         .delete(`${url}/${id}` as string)
          .then((response) => {
             fetchTodos();
          })
@@ -57,7 +57,7 @@ const SingleTodo = ({ index, todo, todos, setTodos, completed }: props) => {
    const handleDone = (id: number) => {
       // setTodos(todos.map((todo) => (todo._id === id ? { ...todo, isDone: !todo.completed } : todo)));
       axios
-         .patch(`${import.meta.env.VITE_API_URL}/${id}` as string, {
+         .patch(`${url}/${id}` as string, {
             todo: todo.todo,
             completed: !todo.completed
          })

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import Input from './components/Input';
 import { Todo } from './model';
@@ -9,13 +9,13 @@ import { useTodos } from './TodoContext';
 
 const App: React.FC = () => {
    const [todo, setTodo] = useState<string>('');
-   const { todos, completedTodos, setTodos, setCompletedTodos, fetchTodos } = useTodos();
+   const { todos, completedTodos, setTodos, setCompletedTodos, fetchTodos, toggle, setToggle, url, loading } = useTodos();
 
    const handleAdd = async (e: React.FormEvent) => {
       e.preventDefault();
 
       await axios
-         .post(import.meta.env.VITE_API_URL as string, {
+         .post(url as string, {
             todo: todo,
             completed: false
          })
@@ -61,13 +61,24 @@ const App: React.FC = () => {
    };
    return (
       <DragDropContext onDragEnd={onDragEnd}>
-         <div className="app">
-            <span className="heading">
-               <i>TASKS</i>
-            </span>
-            <Input todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
-            <TodoList todos={todos} setTodos={setTodos} completedTodos={completedTodos} setCompletedTodos={setCompletedTodos} />
-         </div>
+         {loading ? (
+            <h1 className="loading">Loading...</h1>
+         ) : (
+            <div className="app">
+               <span className="heading">
+                  <i>TASKS</i>
+                  <section className="head_side">
+                     <label className="switch">
+                        <input type="checkbox" checked={toggle} onChange={() => setToggle(!toggle)} />
+                        <span className="slider round"></span>
+                     </label>
+                     <span className="switch_label">{toggle ? 'Personal' : 'Work'} </span>
+                  </section>
+               </span>
+               <Input todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
+               <TodoList todos={todos} setTodos={setTodos} completedTodos={completedTodos} setCompletedTodos={setCompletedTodos} />
+            </div>
+         )}
       </DragDropContext>
    );
 };

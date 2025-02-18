@@ -8,6 +8,10 @@ interface TodoContextProps {
    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
    setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
    fetchTodos: () => void;
+   toggle: boolean;
+   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+   url: any;
+   loading: boolean;
 }
 
 interface TodoProviderProps {
@@ -19,31 +23,42 @@ const TodoContext = createContext<TodoContextProps | undefined>(undefined);
 export const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
    const [todos, setTodos] = useState<Todo[]>([]);
    const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+   const [toggle, setToggle] = useState<boolean>(false);
+   const [loading, setLoading] = useState<boolean>(true);
+   const url = toggle ? import.meta.env.VITE_API_URL_PERSONAL : import.meta.env.VITE_API_URL;
 
    const fetchTodos = async () => {
-      await axios.get(import.meta.env.VITE_API_URL as string).then((response) => {
-         var mainItems = response.data.tasks;
-         if (response.data.tasks.length > 1) {
-            var items: Todo[] = [];
-            mainItems = mainItems.filter((item: Todo) => {
-               if (item.completed == true) {
-                  items.push(item);
-                  return false;
-               }
-               return true;
-            });
-            setTodos(mainItems);
-            setCompletedTodos(items);
-         }
-      });
+      await axios
+         .get(url as any)
+         .then((response) => {
+            var mainItems = response.data.tasks;
+            if (response.data.tasks.length > 1) {
+               var items: Todo[] = [];
+               mainItems = mainItems.filter((item: Todo) => {
+                  if (item.completed == true) {
+                     items.push(item);
+                     return false;
+                  }
+                  return true;
+               });
+               setTodos(mainItems);
+               setCompletedTodos(items);
+               setLoading(false);
+            }
+         })
+         .catch((err) => {
+            console.log(err);
+         });
    };
 
    useEffect(() => {
       fetchTodos();
-   }, []);
+   }, [url]);
 
    return (
-      <TodoContext.Provider value={{ todos, completedTodos, setTodos, setCompletedTodos, fetchTodos }}>
+      <TodoContext.Provider
+         value={{ todos, completedTodos, setTodos, setCompletedTodos, fetchTodos, toggle, setToggle, url, loading }}
+      >
          {children}
       </TodoContext.Provider>
    );
