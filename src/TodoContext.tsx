@@ -32,7 +32,7 @@ export const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
          .get(url as any)
          .then((response) => {
             var mainItems = response.data.tasks;
-            if (response.data.tasks.length > 1) {
+            if (response.data.tasks.length > 0) {
                var items: Todo[] = [];
                mainItems = mainItems.filter((item: Todo) => {
                   if (item.completed == true) {
