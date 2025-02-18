@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 import { Todo } from './model';
 
@@ -10,9 +10,13 @@ interface TodoContextProps {
    fetchTodos: () => void;
 }
 
+interface TodoProviderProps {
+   children: ReactNode;
+}
+
 const TodoContext = createContext<TodoContextProps | undefined>(undefined);
 
-export const TodoProvider: React.FC = ({ children }) => {
+export const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
    const [todos, setTodos] = useState<Todo[]>([]);
    const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
 

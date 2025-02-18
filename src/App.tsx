@@ -5,7 +5,7 @@ import { Todo } from './model';
 import TodoList from './components/TodoList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import axios from 'axios';
-import { useTodos } from './todoContext';
+import { useTodos } from './TodoContext';
 
 const App: React.FC = () => {
    const [todo, setTodo] = useState<string>('');

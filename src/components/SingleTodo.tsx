@@ -6,7 +6,7 @@ import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import TodoList from './TodoList';
 import { Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
-import { useTodos } from '../todoContext';
+import { useTodos } from '../TodoContext';
 
 interface props {
    index: number;
