@@ -35,7 +35,9 @@
    letter-spacing: 2px;
    display: flex;
    width: 100%;
-   justify-content: space-around;
+   justify-content: space-between;
+   padding-left: 20%;
+   padding-right: 5%;
    align-items: center;
 }
 
@@ -109,4 +111,21 @@ input:checked+.slider:before {
 
 .slider.round:before {
    border-radius: 50%;
+}
+
+.logout {
+   cursor: pointer;
+   color: #fff;
+}
+
+.logout:hover {
+   color: red;
+}
+
+.container-app {
+   color: #fff;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: 10%;
 }
