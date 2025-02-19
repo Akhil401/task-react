@@ -8,8 +8,10 @@ import './App.css';
 import Home from './pages/Home';
 import { Link } from 'react-router-dom';
 import './components/styles.css';
+import useIdleTimeout from './components/useIdleTmeout';
 
 const App: React.FC = () => {
+   // useIdleTimeout(5 * 6 * 1000);
    return (
       <Router>
          <Routes>
