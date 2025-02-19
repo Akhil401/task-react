@@ -8,7 +8,6 @@ const useIdleTimeout = (timeout: number) => {
    const resetTimer = () => {
       clearTimeout(timer);
       timer = setTimeout(() => {
-         alert('User Session expired, Log again please!');
          navigate('/login');
          localStorage.removeItem('user');
       }, timeout);
@@ -25,7 +24,12 @@ const useIdleTimeout = (timeout: number) => {
          events.forEach((event) => window.removeEventListener(event, handleUserActivity));
          clearTimeout(timer);
       };
-   }, []);
+   }, [timeout]);
+};
+
+export const IdleTimeoutComponent: React.FC<{ timeout: number }> = ({ timeout }) => {
+   useIdleTimeout(timeout);
+   return null;
 };
 
 export default useIdleTimeout;
