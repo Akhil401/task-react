@@ -10,7 +10,7 @@ import { IdleTimeoutComponent } from './components/useIdleTimeout';
 const App: React.FC = () => {
    return (
       <Router>
-         <IdleTimeoutComponent timeout={5 * 6 * 1000} />
+         {/* <IdleTimeoutComponent timeout={5 * 6 * 1000} /> */}
          <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
